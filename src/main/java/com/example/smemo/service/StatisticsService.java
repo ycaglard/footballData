@@ -7,7 +7,7 @@ import java.util.List;
 public interface StatisticsService {
     StatisticsDTO findLargestScoreGap(List<StatisticsDTO> scoreList);
     StatisticsDTO findLargestPointDifference();
-    StatisticsDTO findMostRedCardsShown();
+    StatisticsDTO findMostRedCardsShown(List<StatisticsDTO> scoreList);
     StatisticsDTO findMostYellowCardsShown();
     StatisticsDTO findMostGoalsScored(List<StatisticsDTO> scoreList);
     StatisticsDTO findMostXg();

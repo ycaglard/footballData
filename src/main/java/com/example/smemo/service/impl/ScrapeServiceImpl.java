@@ -3,10 +3,7 @@ package com.example.smemo.service.impl;
 import com.example.smemo.Enum.Type;
 import com.example.smemo.dto.StatisticsDTO;
 import com.example.smemo.mapper.StatisticsMapper;
-import com.example.smemo.model.League;
-import com.example.smemo.model.LeagueWrapper;
-import com.example.smemo.model.Match;
-import com.example.smemo.model.MatchStatus;
+import com.example.smemo.model.*;
 import com.example.smemo.service.ScrapeService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import lombok.NoArgsConstructor;
@@ -63,18 +60,20 @@ public class ScrapeServiceImpl implements ScrapeService {
             for (Match match : matches) {
                 MatchStatus status = match.getStatus();
                 if (status != null && status.getScoreStr() != null) {
-                    String homeTeamName = match.getHome().getName();
-                    String awayTeamName = match.getAway().getName();
+                    Team homeTeam = match.getHome();
+                    Team awayTeam = match.getAway();
 
                     StatisticsDTO statisticsDTO = StatisticsDTO.builder()
                             .statisticsName("Result")
-                            .owner(homeTeamName)
-                            .against(awayTeamName)
+                            .owner(homeTeam.getName())
+                            .against(awayTeam.getName())
                             .outcome(status.getScoreStr())
                             .description("Score of a match")
                             .statisticsType(Type.SCORE)
                             .league(league.getName())
                             .photoUrl("photourl")
+                            .redCard((Objects.isNull(homeTeam.getRedCards()) ? 0 : homeTeam.getRedCards())
+                                    + (Objects.isNull(awayTeam.getRedCards()) ? 0 : awayTeam.getRedCards()))
                             .build();
 
                     scoreList.add(statisticsDTO);

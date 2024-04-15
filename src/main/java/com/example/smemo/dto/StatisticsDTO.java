@@ -16,5 +16,8 @@ public class StatisticsDTO {
     String owner;
     String against;
     String photoUrl;
+    Integer redCard;
+    Integer yellowCard;
+    Double xg;
 
 }

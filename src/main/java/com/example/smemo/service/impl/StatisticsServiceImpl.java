@@ -28,8 +28,18 @@ public class StatisticsServiceImpl implements StatisticsService {
     }
 
     @Override
-    public StatisticsDTO findMostRedCardsShown() {
-        return null;
+    public StatisticsDTO findMostRedCardsShown(List<StatisticsDTO> statisticsDTOList) {
+        int max = -1;
+        StatisticsDTO statisticsDTO = null;
+
+        for(StatisticsDTO s : statisticsDTOList){
+            if(s.getRedCard()>max){
+                max = s.getRedCard();
+                statisticsDTO = s;
+            }
+        }
+
+        return statisticsDTO;
     }
 
     @Override

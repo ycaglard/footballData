@@ -62,4 +62,13 @@ class SmemoApplicationTests {
 		StatisticsDTO statisticsDTO = statisticsService.findMostGoalsScored(scrapeService.getScores(date));
 	}
 
+	@Test
+	void get_scores_return_max_red_card() throws ParseException, JsonProcessingException {
+		String dateString = "2024-04-14";
+		DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+		Date date = dateFormat.parse(dateString);
+		StatisticsDTO statisticsDTO = statisticsService.findMostRedCardsShown(scrapeService.getScores(date));
+		System.out.println(statisticsDTO.getRedCard() + " : " + statisticsDTO.getOwner() + " - " + statisticsDTO.getAgainst());
+	}
+
 }
